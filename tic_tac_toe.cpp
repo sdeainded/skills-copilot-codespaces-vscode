@@ -1,4 +1,5 @@
 #include <iostream>
+#include "visuals.h"
 
 using namespace std;
 
@@ -7,12 +8,26 @@ char currentPlayer = 'X';
 
 void displayBoard() {
     cout << "\n";
+    cout << BOLD_CYAN << "     ╔═══╦═══╦═══╗" << RESET << endl;
     for (int i = 0; i < 3; i++) {
-        cout << " " << board[i][0] << " | " << board[i][1] << " | " << board[i][2] << endl;
+        cout << BOLD_CYAN << "     ║" << RESET;
+        for (int j = 0; j < 3; j++) {
+            cout << " ";
+            if (board[i][j] == 'X') {
+                cout << BOLD_RED << "X" << RESET;
+            } else if (board[i][j] == 'O') {
+                cout << BOLD_BLUE << "O" << RESET;
+            } else {
+                cout << BOLD_YELLOW << board[i][j] << RESET;
+            }
+            cout << " " << BOLD_CYAN << "║" << RESET;
+        }
+        cout << endl;
         if (i < 2) {
-            cout << "---|---|---" << endl;
+            cout << BOLD_CYAN << "     ╠═══╬═══╬═══╣" << RESET << endl;
         }
     }
+    cout << BOLD_CYAN << "     ╚═══╩═══╩═══╝" << RESET << endl;
     cout << "\n";
 }
 
@@ -81,18 +96,31 @@ void resetBoard() {
 
 void playTicTacToe() {
     char playAgain;
+    int xWins = 0, oWins = 0, draws = 0;
     
     do {
         resetBoard();
         int moves = 0;
         bool gameWon = false;
         
-        cout << "\n=== Tic-Tac-Toe ===" << endl;
-        cout << "Player 1: X | Player 2: O" << endl;
+        printTitle("⭕ TIC-TAC-TOE ❌");
+        
+        // Display scoreboard
+        cout << "\n";
+        cout << BOLD_CYAN << "  ╔═══════════ SCOREBOARD ═══════════╗" << RESET << endl;
+        cout << BOLD_CYAN << "  ║" << RESET << "  " << BOLD_RED << "X: " << xWins << RESET << "  |  " 
+             << BOLD_BLUE << "O: " << oWins << RESET << "  |  " 
+             << BOLD_YELLOW << "Draws: " << draws << RESET << "       " << BOLD_CYAN << "║" << RESET << endl;
+        cout << BOLD_CYAN << "  ╚═══════════════════════════════════╝" << RESET << endl;
+        
+        cout << "\n  " << BOLD_RED << "Player X (Red)" << RESET << " vs " << BOLD_BLUE << "Player O (Blue)" << RESET << endl;
         
         while (!gameWon && moves < 9) {
             displayBoard();
-            cout << "Player " << currentPlayer << ", enter position (1-9): ";
+            
+            string playerColor = (currentPlayer == 'X') ? BOLD_RED : BOLD_BLUE;
+            cout << "  " << playerColor << "Player " << currentPlayer << RESET 
+                 << BOLD_WHITE << ", enter position (1-9): " << RESET;
             
             int position;
             cin >> position;
@@ -100,7 +128,7 @@ void playTicTacToe() {
             if (cin.fail()) {
                 cin.clear();
                 cin.ignore(10000, '\n');
-                cout << "Invalid input! Please enter a number." << endl;
+                cout << BOLD_RED << "  ❌ Invalid input! Please enter a number." << RESET << endl;
                 continue;
             }
             
@@ -108,22 +136,60 @@ void playTicTacToe() {
                 moves++;
                 
                 if (checkWin()) {
+                    clearScreen();
+                    printTitle("⭕ TIC-TAC-TOE ❌");
                     displayBoard();
-                    cout << "Player " << currentPlayer << " wins!" << endl;
+                    printBorder('*', 50);
+                    cout << "  " << playerColor << "🎉 PLAYER " << currentPlayer << " WINS! 🎉" << RESET << endl;
+                    printBorder('*', 50);
+                    
+                    if (currentPlayer == 'X') xWins++;
+                    else oWins++;
+                    
                     gameWon = true;
                 } else if (checkDraw()) {
+                    clearScreen();
+                    printTitle("⭕ TIC-TAC-TOE ❌");
                     displayBoard();
-                    cout << "It's a draw!" << endl;
+                    printBorder('=', 50);
+                    cout << BOLD_YELLOW << "  🤝 IT'S A DRAW! 🤝" << RESET << endl;
+                    printBorder('=', 50);
+                    draws++;
                     gameWon = true;
                 } else {
+                    clearScreen();
+                    printTitle("⭕ TIC-TAC-TOE ❌");
+                    cout << "\n  " << BOLD_RED << "Player X (Red)" << RESET << " vs " << BOLD_BLUE << "Player O (Blue)" << RESET << endl;
                     currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
                 }
             } else {
-                cout << "Invalid move! Try again." << endl;
+                cout << BOLD_RED << "  ❌ Invalid move! That position is taken or out of range." << RESET << endl;
             }
         }
         
-        cout << "\nPlay again? (y/n): ";
+        cout << "\n" << BOLD_WHITE << "  Play again? (y/n): " << RESET;
         cin >> playAgain;
     } while (playAgain == 'y' || playAgain == 'Y');
+    
+    // Final scoreboard
+    clearScreen();
+    printBorder('=', 50);
+    cout << BOLD_CYAN << "  FINAL SCOREBOARD" << RESET << endl;
+    printBorder('=', 50);
+    cout << BOLD_RED << "  Player X: " << xWins << RESET << endl;
+    cout << BOLD_BLUE << "  Player O: " << oWins << RESET << endl;
+    cout << BOLD_YELLOW << "  Draws:    " << draws << RESET << endl;
+    printBorder('=', 50);
+    
+    if (xWins > oWins) {
+        cout << BOLD_RED << "  🏆 PLAYER X IS THE CHAMPION! 🏆" << RESET << endl;
+    } else if (oWins > xWins) {
+        cout << BOLD_BLUE << "  🏆 PLAYER O IS THE CHAMPION! 🏆" << RESET << endl;
+    } else {
+        cout << BOLD_YELLOW << "  🤝 It's a perfect tie!" << RESET << endl;
+    }
+    
+    cout << YELLOW << "\n  Press Enter to return to menu..." << RESET;
+    cin.ignore();
+    cin.get();
 }

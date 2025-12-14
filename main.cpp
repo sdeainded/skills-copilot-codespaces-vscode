@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include "visuals.h"
 
 using namespace std;
 
@@ -10,15 +11,17 @@ void playRockPaperScissors();
 void playTicTacToe();
 
 void displayMenu() {
-    cout << "\n========================================" << endl;
-    cout << "    Welcome to C++ Games Collection!    " << endl;
-    cout << "========================================" << endl;
-    cout << "1. Number Guessing Game" << endl;
-    cout << "2. Rock, Paper, Scissors" << endl;
-    cout << "3. Tic-Tac-Toe" << endl;
-    cout << "4. Exit" << endl;
-    cout << "========================================" << endl;
-    cout << "Enter your choice (1-4): ";
+    clearScreen();
+    cout << "\n";
+    cout << BOLD_CYAN << "╔════════════════════════════════════════════════╗" << RESET << endl;
+    cout << BOLD_CYAN << "║" << BOLD_YELLOW << "    🎮  Welcome to C++ Games Collection!  🎮    " << BOLD_CYAN << "║" << RESET << endl;
+    cout << BOLD_CYAN << "╠════════════════════════════════════════════════╣" << RESET << endl;
+    cout << BOLD_CYAN << "║" << RESET << "  " << BOLD_GREEN << "1." << RESET << " 🎯 Number Guessing Game                    " << BOLD_CYAN << "║" << RESET << endl;
+    cout << BOLD_CYAN << "║" << RESET << "  " << BOLD_GREEN << "2." << RESET << " ✊ Rock, Paper, Scissors                  " << BOLD_CYAN << "║" << RESET << endl;
+    cout << BOLD_CYAN << "║" << RESET << "  " << BOLD_GREEN << "3." << RESET << " ⭕ Tic-Tac-Toe                            " << BOLD_CYAN << "║" << RESET << endl;
+    cout << BOLD_CYAN << "║" << RESET << "  " << BOLD_RED << "4." << RESET << " 🚪 Exit                                   " << BOLD_CYAN << "║" << RESET << endl;
+    cout << BOLD_CYAN << "╚════════════════════════════════════════════════╝" << RESET << endl;
+    cout << "\n" << BOLD_WHITE << "Enter your choice (1-4): " << RESET;
 }
 
 int main() {
@@ -34,7 +37,10 @@ int main() {
         if (cin.fail()) {
             cin.clear();
             cin.ignore(10000, '\n');
-            cout << "\nInvalid input! Please enter a number." << endl;
+            cout << BOLD_RED << "\n❌ Invalid input! Please enter a number." << RESET << endl;
+            cout << YELLOW << "Press Enter to continue..." << RESET;
+            cin.ignore();
+            cin.get();
             continue;
         }
         
@@ -49,10 +55,14 @@ int main() {
                 playTicTacToe();
                 break;
             case 4:
-                cout << "\nThanks for playing! Goodbye!" << endl;
+                clearScreen();
+                cout << BOLD_GREEN << "\n✨ Thanks for playing! Goodbye! ✨\n" << RESET << endl;
                 break;
             default:
-                cout << "\nInvalid choice! Please try again." << endl;
+                cout << BOLD_RED << "\n❌ Invalid choice! Please try again." << RESET << endl;
+                cout << YELLOW << "Press Enter to continue..." << RESET;
+                cin.ignore();
+                cin.get();
         }
     } while (choice != 4);
     
