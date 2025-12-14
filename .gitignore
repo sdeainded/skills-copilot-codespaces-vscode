@@ -1,0 +1,21 @@
+# Compiled executables
+games
+
+# Object files
+*.o
+*.obj
+
+# Build directories
+build/
+bin/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
