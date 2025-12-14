@@ -97,6 +97,13 @@ void playTicTacToe() {
             int position;
             cin >> position;
             
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout << "Invalid input! Please enter a number." << endl;
+                continue;
+            }
+            
             if (makeMove(position)) {
                 moves++;
                 

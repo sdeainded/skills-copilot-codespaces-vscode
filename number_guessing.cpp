@@ -1,6 +1,4 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
@@ -16,6 +14,14 @@ void playNumberGuessing() {
     do {
         cout << "\nEnter your guess: ";
         cin >> guess;
+        
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input! Please enter a number." << endl;
+            continue;
+        }
+        
         attempts++;
         
         if (guess > secretNumber) {

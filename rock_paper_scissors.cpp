@@ -1,6 +1,4 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
@@ -15,6 +13,13 @@ void playRockPaperScissors() {
         cout << "3. Scissors" << endl;
         cout << "Enter your choice (1-3): ";
         cin >> playerChoice;
+        
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input! Please enter a number." << endl;
+            continue;
+        }
         
         if (playerChoice < 1 || playerChoice > 3) {
             cout << "Invalid choice! Please try again." << endl;

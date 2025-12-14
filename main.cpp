@@ -31,6 +31,13 @@ int main() {
         displayMenu();
         cin >> choice;
         
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "\nInvalid input! Please enter a number." << endl;
+            continue;
+        }
+        
         switch (choice) {
             case 1:
                 playNumberGuessing();
