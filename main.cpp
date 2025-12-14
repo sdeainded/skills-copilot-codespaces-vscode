@@ -39,7 +39,6 @@ int main() {
             cin.ignore(10000, '\n');
             cout << BOLD_RED << "\n❌ Invalid input! Please enter a number." << RESET << endl;
             cout << YELLOW << "Press Enter to continue..." << RESET;
-            cin.ignore();
             cin.get();
             continue;
         }
@@ -61,7 +60,7 @@ int main() {
             default:
                 cout << BOLD_RED << "\n❌ Invalid choice! Please try again." << RESET << endl;
                 cout << YELLOW << "Press Enter to continue..." << RESET;
-                cin.ignore();
+                cin.ignore(10000, '\n');
                 cin.get();
         }
     } while (choice != 4);

@@ -39,7 +39,7 @@ void playRockPaperScissors() {
         if (playerChoice < 1 || playerChoice > 3) {
             cout << BOLD_RED << "  ❌ Invalid choice! Please try again." << RESET << endl;
             cout << YELLOW << "  Press Enter to continue..." << RESET;
-            cin.ignore();
+            cin.ignore(10000, '\n');
             cin.get();
             continue;
         }
@@ -109,6 +109,6 @@ void playRockPaperScissors() {
     }
     
     cout << YELLOW << "\n  Press Enter to return to menu..." << RESET;
-    cin.ignore();
+    cin.ignore(10000, '\n');
     cin.get();
 }

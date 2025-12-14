@@ -60,6 +60,6 @@ void playNumberGuessing() {
     } while (guess != secretNumber);
     
     cout << YELLOW << "\n  Press Enter to return to menu..." << RESET;
-    cin.ignore();
+    cin.ignore(10000, '\n');
     cin.get();
 }
