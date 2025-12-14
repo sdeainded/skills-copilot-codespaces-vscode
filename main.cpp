@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -20,6 +22,9 @@ void displayMenu() {
 }
 
 int main() {
+    // Initialize random seed once
+    srand(time(0));
+    
     int choice;
     
     do {

@@ -5,7 +5,6 @@
 using namespace std;
 
 void playRockPaperScissors() {
-    srand(time(0));
     int playerChoice, computerChoice;
     char playAgain;
     

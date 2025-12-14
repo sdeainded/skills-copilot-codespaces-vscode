@@ -5,7 +5,6 @@
 using namespace std;
 
 void playNumberGuessing() {
-    srand(time(0));
     int secretNumber = rand() % 100 + 1;
     int guess;
     int attempts = 0;
